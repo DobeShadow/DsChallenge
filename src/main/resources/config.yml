@@ -1,0 +1,192 @@
+# ============================================
+#  DsChallenge 配置文件
+#  配置结构变更时请同步修改 config-version
+# ============================================
+config-version: 1
+
+# 每日重置时间（24 小时制，格式 HH:mm）
+# 在该时间之前，玩家仍视为“前一天”的挑战
+reset-time: '04:00'
+
+# 玩家进服时是否提示今日挑战
+notify-on-join: true
+
+# 主挑战完成时是否全服广播
+broadcast-on-complete: true
+
+# ============================================
+#  主挑战池
+#  每天为玩家从下列类型中随机抽取一个作为主挑战
+#  可选值: KILL, MINE, CRAFT, FISH, TRADE, DAMAGE
+# ============================================
+main-pool:
+  - KILL
+  - MINE
+  - CRAFT
+  - FISH
+  - TRADE
+  - DAMAGE
+
+# ============================================
+#  支线池
+#  每天为玩家从下列类型中随机抽取一个作为支线
+#  可选值: SURVIVE, SIDE_FISH, FEED, ENCHANT, MOVE, KILL_SMALL, CLEAN
+# ============================================
+side-pool:
+  - SURVIVE
+  - SIDE_FISH
+  - FEED
+  - ENCHANT
+  - MOVE
+  - KILL_SMALL
+  - CLEAN
+
+# ============================================
+#  各挑战类型的参数
+#  min / max 为随机数量范围（含两端）
+#  targets 为可随机抽取的目标列表（仅部分类型需要）
+# ============================================
+challenges:
+  # 击杀挑战：击杀指定怪物
+  KILL:
+    min: 150
+    max: 250
+    targets:
+      - ZOMBIE
+      - SKELETON
+      - SPIDER
+      - CREEPER
+      - ENDERMAN
+      - WITCH
+      - PILLAGER
+      - BLAZE
+
+  # 采集挑战：挖掘指定方块
+  MINE:
+    min: 400
+    max: 700
+    targets:
+      - STONE
+      - DEEPSLATE
+      - COBBLESTONE
+      - OAK_LOG
+      - BIRCH_LOG
+      - IRON_ORE
+      - COAL_ORE
+      - SAND
+
+  # 合成挑战：合成指定物品
+  CRAFT:
+    min: 64
+    max: 128
+    targets:
+      - CAKE
+      - BREAD
+      - TORCH
+      - CHEST
+      - LADDER
+      - PAPER
+      - STICK
+      - GLASS
+
+  # 钓鱼挑战：钓到鱼的数量
+  FISH:
+    min: 40
+    max: 70
+
+  # 交易挑战：与村民交易次数
+  TRADE:
+    min: 25
+    max: 45
+
+  # 伤害挑战：累计造成伤害点数
+  DAMAGE:
+    min: 400
+    max: 800
+
+  # 生存挑战（支线）：连续存活秒数
+  SURVIVE:
+    min: 900
+    max: 1800
+
+  # 钓鱼支线：钓到鱼的数量
+  SIDE_FISH:
+    min: 10
+    max: 20
+
+  # 喂养挑战（支线）：给动物喂食次数
+  FEED:
+    min: 15
+    max: 30
+
+  # 附魔挑战（支线）：附魔次数
+  ENCHANT:
+    min: 5
+    max: 10
+
+  # 移动挑战（支线）：累计移动格数
+  MOVE:
+    min: 500
+    max: 1000
+
+  # 小怪击杀（支线）：击杀小型生物数量
+  KILL_SMALL:
+    min: 20
+    max: 40
+    targets:
+      - CHICKEN
+      - RABBIT
+      - COW
+      - PIG
+      - SHEEP
+      - BAT
+
+  # 清理挑战（支线）：清理草/花数量
+  CLEAN:
+    min: 30
+    max: 60
+    targets:
+      - SHORT_GRASS
+      - TALL_GRASS
+      - DANDELION
+      - POPPY
+      - FERN
+      - DEAD_BUSH
+
+# ============================================
+#  奖励配置
+#  items: 物品奖励列表（material 为材质名，amount 为数量，name 可选）
+#  money: 经济奖励金额（需要 Vault）
+#  commands: 命令奖励（%player% 会被替换为玩家名）
+# ============================================
+rewards:
+  # 主挑战奖励
+  main:
+    items:
+      - material: DIAMOND
+        amount: 16
+      - material: GOLDEN_APPLE
+        amount: 4
+        name: '&6挑战者的金苹果'
+    money: 5000
+    commands:
+      - 'give %player% netherite_ingot 2'
+      - 'say %player% 完成了今日主挑战！'
+
+  # 支线奖励
+  side:
+    items:
+      - material: IRON_INGOT
+        amount: 16
+      - material: EXPERIENCE_BOTTLE
+        amount: 8
+    money: 1000
+    commands: []
+
+# ============================================
+#  消息文本（支持 & 颜色代码）
+# ============================================
+messages:
+  main-complete: '&6[每日挑战] &e%player% &a完成了今日主挑战：&f%challenge%'
+  side-complete: '&b[每日挑战] &a你完成了今日支线：&f%challenge%'
+  main-failed: '&c[每日挑战] &7你死亡了，今日主挑战失败并已锁定。'

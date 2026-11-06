@@ -1,0 +1,21 @@
+name: DsChallenge
+version: '1.0.0'
+main: io.bukkitcode.dschallenge.DsChallenge
+api-version: '1.21'
+authors: ['幻影']
+description: '每日随机挑战插件：每天通过跑马灯抽奖开启一个高难度主挑战与一个附属支线挑战，完成后获得丰厚奖励。'
+softdepend: [Vault]
+
+commands:
+  challenge:
+    description: '打开今日挑战界面 / 管理员刷新挑战'
+    usage: '/challenge [refresh]'
+    aliases: [dc, dailyc]
+
+permissions:
+  dschallenge.use:
+    description: '允许使用 /challenge 打开挑战界面'
+    default: true
+  dschallenge.admin:
+    description: '允许使用 /challenge refresh 重置挑战'
+    default: op
